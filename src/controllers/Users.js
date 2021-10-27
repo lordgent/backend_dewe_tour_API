@@ -22,5 +22,24 @@ exports.getUsers = async (req,res) => {
         });
 
     }
+}
 
+
+exports.destroyUser = async (req,res) => {
+    try {
+        const {id} =req.params;
+        await Users.destroy({
+            where: {
+                id
+            }
+        })
+        res.send({
+            status: 'success',
+            message: 'delete user successfully..'
+        });
+    } catch (error) {
+        res.status(500).send({
+            status: 'SERVER ERROR'
+        });
+    }
 }

@@ -12,7 +12,8 @@ router.post('/signup', signUp)
 
 // =========== User/Admin ============
 
-const {getUsers} = require('../controllers/Users')
+const {getUsers,destroyUser} = require('../controllers/Users')
 router.get('/users', authuser, AuthAdm, getUsers)
-
+router.delete('/user/:id', authuser,AuthAdm, destroyUser)
 module.exports = router
+
