@@ -7,9 +7,7 @@ app.use(express.json())
 const router = require('./src/routes/index')
 
 app.get('/' , (req , res)=>{
-
    res.send(`Welcome in API dewe Tour :) `)
-
 })
 
 app.use('/backend/v1/', router)
