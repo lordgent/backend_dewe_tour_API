@@ -13,7 +13,7 @@ exports.authuser = (req,res,next) => {
     }
     try {
           const verified = jwt.verify(token, process.env.TOKEN_KEY);
-          req.user = verified;
+          req.userid = verified;
           next();
     } catch (error) {
       console.log(error);
@@ -26,7 +26,7 @@ exports.authuser = (req,res,next) => {
 
 exports.AuthAdm = async (req, res, next) => {
     try {
-      const { id } = req.user;
+      const { id } = req.userid;
       const cekstatus = await Users.findOne({
         where: {
           id,
