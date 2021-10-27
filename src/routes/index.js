@@ -17,5 +17,9 @@ router.get('/users', authuser, AuthAdm, getUsers)
 router.delete('/user', authuser,AuthAdm, destroyUser)
 router.get('/user', authuser, getDetailUser)
 
+// ==== country ======
+const {addCountry} = require('../controllers/country')
+router.post('/country', authuser,AuthAdm, addCountry)
+
 module.exports = router
 
