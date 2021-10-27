@@ -60,6 +60,7 @@ exports.signIn = async (req, res) => {
       fullname: Joi.string().min(4).required(),
       nophone: Joi.string().min(12).required(),
       gender: Joi.string().required(),
+      address: Joi.string(),
       email: Joi.string().min(4).required(),
       password: Joi.string().min(8).required(),
       role: Joi.string()
@@ -88,13 +89,14 @@ exports.signIn = async (req, res) => {
             message: 'email/fullname is already'
         });
       }  
-      const {fullname,nophone,gender,email,password} = req.body
+      const {fullname,nophone,gender, address,email,password} = req.body
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(password, salt);
       const data = await Users.create({
         fullname: fullname,
         nophone: nophone,
         gender: gender,
+        address: address,
         email: email,
         password: hashed,
         role: 'user'
