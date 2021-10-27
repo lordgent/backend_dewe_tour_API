@@ -1,28 +1,32 @@
 const {Users} = require('../../models');
 const jwt = require('jsonwebtoken')
 
-exports.Auth = async (req,res) => {
+exports.authuser = (req,res,next) => {
+
+  const authHeader = req.header("Authorization");
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) {
+      return res.status(401).send({
+        message: "Access denied!!",
+      });
+    }
     try {
-        const authHeader = req.header("Authorization");
-        const token = authHeader && authHeader.split("")[1];
-        if (!token) {
-            return res.status(401).send({
-              message: "Access denied!!",
-            });
-          }
           const verified = jwt.verify(token, process.env.TOKEN_KEY);
-          req.userid = verified;
+          req.user = verified;
           next();
     } catch (error) {
+      console.log(error);
         res.status(400).send({
             message: "Invalid Token.. | Bad Request ",
        });
     }
 }
 
+
 exports.AuthAdm = async (req, res, next) => {
     try {
-      const { id } = req.userid;
+      const { id } = req.user;
       const cekstatus = await Users.findOne({
         where: {
           id,
@@ -35,6 +39,7 @@ exports.AuthAdm = async (req, res, next) => {
           })
         : next();
     } catch (error) {
+      console.log(error);
       res.status(500).send({
         status: "SERVER ERROR",
       });
