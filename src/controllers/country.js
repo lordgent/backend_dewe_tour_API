@@ -73,3 +73,26 @@ exports.updateCountry = async (req,res) => {
         });
     }
 }
+
+
+exports.deleteCountry = async (req,res) => {
+    try {  
+        const {id} = req.params;
+        await Country.destroy({
+            where: {
+                id
+            }
+        })
+        res.send({
+            status: 'success',
+            message: 'Delete country successfully...'
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            status: 'SERVER ERROR', 
+        });
+    }
+}
+
