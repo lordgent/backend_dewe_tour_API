@@ -52,3 +52,24 @@ exports.getDetailcountry = async (req,res) => {
         });
     }
 }
+
+exports.updateCountry = async (req,res) => {
+    try {  
+        const {id} = req.params;
+         await Country.update(req.body,{
+            where: {
+                id
+            }
+        })
+        res.send({
+            status: 'success',
+            message: 'update country successfully...'
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            status: 'SERVER ERROR', 
+        });
+    }
+}
