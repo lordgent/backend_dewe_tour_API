@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/backend/v1/", router);
-
+app.use("/uploads", express.static("uploads"));
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });

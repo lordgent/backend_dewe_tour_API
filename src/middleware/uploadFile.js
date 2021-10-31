@@ -46,7 +46,7 @@ exports.uploadFile = (imageTrip, imageProfile, imagePayment) => {
   }).fields([
     {
       name: imageTrip,
-      maxCount: 6,
+      maxCount: 5,
     },
     {
       name: imageProfile,

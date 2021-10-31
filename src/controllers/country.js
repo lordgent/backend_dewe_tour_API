@@ -2,7 +2,20 @@ const { Country } = require("../../models");
 
 exports.addCountry = async (req, res) => {
   try {
-    const data = await Country.create(req.body);
+    const cek = await Country.findOne({
+      where: {
+        namecountry: req.body.namecountry,
+      },
+    });
+    if (cek) {
+      return res.status(400).send({
+        status: "bad request",
+        message: "Country is already",
+      });
+    }
+    const data = await Country.create({
+      namecountry: req.body.namecountry,
+    });
     res.send({
       status: "success",
       data,
@@ -89,3 +102,19 @@ exports.deleteCountry = async (req, res) => {
     });
   }
 };
+
+exports.UpdateTransaction = async (req,res) => {
+
+
+  try {
+
+    
+
+  } catch (error) {
+    
+
+
+  }
+
+
+}

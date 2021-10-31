@@ -14,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
           name: "idcountry",
         },
       });
+
+      Trip.hasMany(models.Transaction, {
+        as: "Transactions",
+        foreignKey: {
+          name: "idtrip",
+        },
+      });
     }
   }
   Trip.init(
