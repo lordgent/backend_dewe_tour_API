@@ -13,7 +13,7 @@ exports.getUsers = async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -32,7 +32,7 @@ exports.destroyUser = async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -55,7 +55,7 @@ exports.createImageProfile = async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -77,7 +77,36 @@ exports.getDetailUser = async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    const { id } = req.userid;
+    const { fullname, nophone, gender, address, email } = req.body;
+    const data = await Users.update(
+      {
+        fullname: fullname,
+        nophone: nophone,
+        gender: gender,
+        address: address,
+        email: email,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+    res.send({
+      status: "success",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
     });
   }
 };

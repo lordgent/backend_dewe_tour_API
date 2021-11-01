@@ -128,6 +128,37 @@ exports.detailTransactionByidUser = async (req, res) => {
       },
     });
 
+    if (!data.length) {
+      return res.status(404).send({
+        status: "not found",
+        message: "Not Transaction",
+      });
+    }
+
+    res.send({
+      status: "success",
+      transctiosns: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
+    });
+  }
+};
+
+exports.approveTransaction = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Transaction.update(
+      {
+        status: "approve",
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
     res.send({
       status: "success",
       transctiosns: data,

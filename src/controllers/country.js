@@ -23,7 +23,7 @@ exports.addCountry = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -38,7 +38,7 @@ exports.getCountries = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -58,7 +58,7 @@ exports.getDetailcountry = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -78,7 +78,7 @@ exports.updateCountry = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -98,23 +98,7 @@ exports.deleteCountry = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
-
-exports.UpdateTransaction = async (req,res) => {
-
-
-  try {
-
-    
-
-  } catch (error) {
-    
-
-
-  }
-
-
-}

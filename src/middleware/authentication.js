@@ -37,3 +37,19 @@ exports.AuthAdm = async (req, res, next) => {
     });
   }
 };
+
+exports.cekRequests = async (req, res) => {
+  try {
+    req.userid.id !== req.userid.id
+      ? res.status(403).send({
+          status: "failed",
+          messae: "Access Denied",
+        })
+      : next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "SERVER ERROR",
+    });
+  }
+};

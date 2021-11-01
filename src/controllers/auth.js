@@ -25,19 +25,26 @@ exports.signIn = async (req, res) => {
       },
     });
 
-    const validd = await bcrypt.compare(password, data.password);
-
-    if (!validd) {
+    if (!data) {
       return res.status(400).send({
-        status: "Failed",
+        status: "failed",
         message: "username/password incorrect",
       });
     }
+
+    const validd = await bcrypt.compare(password, data.password);
+    if (!validd) {
+      return res.status(400).send({
+        status: "failed",
+        message: "username/password incorrect",
+      });
+    }
+
     const token = jwt.sign(
       { id: data.id, status: data.role },
       process.env.TOKEN_KEY
     );
-    res.status(200).send({
+    res.send({
       status: "success",
       data: {
         id: data.id,
@@ -48,9 +55,8 @@ exports.signIn = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     res.status(500).send({
-      status: "ERROR",
+      status: "failed",
       message: "server Error",
     });
   }
@@ -69,7 +75,6 @@ exports.signUp = async (req, res) => {
 
   const { error } = Schema.validate(req.body);
   if (error) {
-    console.log(error);
     return res.status(400).send({
       error: {
         message: error.details[0].message,
@@ -104,12 +109,17 @@ exports.signUp = async (req, res) => {
 
     res.send({
       status: "success",
-      data,
+      data: {
+        fullname: data.fullname,
+        email: data.email,
+        status: data.role,
+      },
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
+      message: "server Error",
     });
   }
 };

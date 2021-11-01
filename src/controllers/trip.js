@@ -34,14 +34,31 @@ exports.createTrip = async (req, res) => {
       desc: desc,
       imagestrip: JSON.stringify(arr),
     });
+    const image = JSON.parse(data.imagestrip);
+    const img = image.map((item) => {
+      return "http://localhost:5005/uploads/images/" + item;
+    });
+
     res.send({
       status: "success",
-      image: JSON.parse(data.imagestrip),
+      data: {
+        title: data.title,
+        accomodation: data.accomodation,
+        transpotation: data.transpotation,
+        eat: data.eat,
+        day: data.day,
+        night: data.night,
+        datetrip: data.datetrip,
+        price: data.price,
+        quota: data.quota,
+        description: data.desc,
+        img,
+      },
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "SERVER ERROR",
+      status: "failed",
     });
   }
 };
@@ -61,7 +78,7 @@ exports.getTrips = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      status: "error",
+      status: "failed",
       message: "server error",
     });
   }
@@ -85,8 +102,8 @@ exports.DetailTrip = async (req, res) => {
         exclude: ["createdAt", "updatedAt"],
       },
     });
-    const image = JSON.parse(data.imagestrip);
-    const img = image?.map((item, idx) => {
+    const images = JSON.parse(data.imagestrip);
+    const image = images?.map((item, idx) => {
       return "http://localhost:5005/uploads/images/" + item;
     });
 
@@ -101,12 +118,54 @@ exports.DetailTrip = async (req, res) => {
         day: data.day,
         night: data.night,
         price: data.price,
-        img,
+        image,
       },
     });
   } catch (error) {
     res.status(500).send({
-      status: "error",
+      status: "failed",
+      message: "server error",
+    });
+  }
+};
+
+exports.updateTrip = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await Trip.update(req.body, {
+      where: {
+        id,
+      },
+    });
+
+    res.send({
+      status: "success",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "server error",
+    });
+  }
+};
+
+exports.deleteTrip = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Trip.destroy({
+      where: {
+        id,
+      },
+    });
+    res.send({
+      status: "success",
+      message: "Delete Trip successfully..",
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: "failed",
       message: "server error",
     });
   }
