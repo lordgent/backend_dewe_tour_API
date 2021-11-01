@@ -10,6 +10,7 @@ module.exports = {
         fullname: 'Admin Dewe',
         nophone: "088235886038",
         gender: "male",
+        address: "Surabaya Jawa Timur",
         email: "admintour@tour.com",
         password: pass,
         role: "admin"

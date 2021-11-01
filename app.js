@@ -1,20 +1,20 @@
-require('dotenv').config()
-const express = require('express');
-const port = process.env.PORT || 5005;
-const app = express()
+require("dotenv").config();
+const express = require("express");
+const port = 5005;
+const app = express();
+// const bodyParser = require("body-parser");
 
-app.use(express.json())
-const router = require('./src/routes/index')
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/' , (req , res)=>{
+app.use(express.json());
+const router = require("./src/routes/index");
 
-   res.send(`Welcome in API dewe Tour :) `)
+app.get("/", (req, res) => {
+  res.send(`Welcome in API dewe Tour :) `);
+});
 
-})
-
-app.use('/backend/v1/', router)
-
-
+app.use("/backend/v1/", router);
+app.use("/uploads", express.static("uploads"));
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+  console.log(`Server started on port ${port}`);
 });

@@ -1,42 +1,42 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable("Transactions", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       iduser: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
-          key: 'id'
+          model: "Users",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       idtrip: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Trips',
-          key: 'id'
+          model: "Trips",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       qty: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       payment: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       subtotal: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       status: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -47,10 +47,10 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.fn("now"),
         type: Sequelize.DATE,
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Transactions');
-  }
+    await queryInterface.dropTable("Transactions");
+  },
 };
